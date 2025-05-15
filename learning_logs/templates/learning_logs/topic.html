@@ -1,0 +1,58 @@
+{% extends "learning_logs/base.html" %}
+
+{% block title %}{{ topic }}{% endblock %}
+
+{% block content %}
+  <div class="row justify-content-center">
+    <div class="col-md-10 col-lg-8">
+
+     
+      <div class="text-center mb-4">
+        <h2 class="display-6 fw-bold text-primary">{{ topic }}</h2>
+        <p class="text-muted">Список записей по этой теме</p>
+      </div>
+
+     
+      <div class="d-flex justify-content-end mb-4">
+        <a href="{% url 'learning_logs:new_entry' topic.id %}" class="btn btn-outline-primary">
+          <i class="bi bi-plus-circle me-2"></i>Добавить новую запись
+        </a>
+      </div>
+
+      
+      {% if entries %}
+        <div class="accordion" id="entriesAccordion">
+          {% for entry in entries %}
+            <div class="accordion-item mb-3 shadow-sm rounded">
+              <h3 class="accordion-header" id="entry-heading-{{ entry.id }}">
+                <button class="accordion-button collapsed bg-white" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#entry-collapse-{{ entry.id }}"
+                        aria-expanded="false" aria-controls="entry-collapse-{{ entry.id }}">
+                  {{ entry.date_added|date:'M d, Y H:i' }}
+                </button>
+              </h3>
+              <div id="entry-collapse-{{ entry.id }}" class="accordion-collapse collapse" 
+                   aria-labelledby="entry-heading-{{ entry.id }}" data-bs-parent="#entriesAccordion">
+                <div class="accordion-body">
+                  {{ entry.text|linebreaks }}
+                  
+                  <hr class="my-3">
+                  <div class="d-flex justify-content-end">
+                    <a href="{% url 'learning_logs:edit_entry' entry.id %}" class="btn btn-sm btn-link p-0">
+                      Редактировать
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="alert alert-light border text-center py-5">
+          Пока нет записей по этой теме.
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+{% endblock %}

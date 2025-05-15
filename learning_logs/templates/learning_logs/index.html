@@ -1,0 +1,124 @@
+{% extends "learning_logs/base.html" %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+    <section class="d-flex align-items-center py-5">
+    <div class="container text-center">
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+          <div class="p-4 p-md-5 mb-4 bg-white rounded shadow-sm">
+            <h1 class="display-5 fw-bold mb-3">Журнал обучения</h1>
+            <p class="lead mb-4">
+              Шаг за шагом. Тема за темой. Результат за результатом.
+            </p>
+
+            <div class="d-flex gap-3 justify-content-center flex-wrap">
+              {% if user.is_authenticated %}
+                <a href="{% url 'learning_logs:topics' %}" class="btn btn-primary btn-lg">
+                  Мои темы
+                </a>
+                <a href="{% url 'accounts:logout' %}" class="btn btn-outline-secondary btn-lg">
+                  Выйти
+                </a>
+              {% else %}
+                <a href="{% url 'accounts:login' %}" class="btn btn-outline-primary btn-lg">
+                  Войти
+                </a>
+                <a href="{% url 'accounts:register' %}" class="btn btn-success btn-lg">
+                  Регистрация
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <section class="bg-gradient text-dark py-5 px-4 text-center"
+           style="background: linear-gradient(to right, #e0e7ff, #f0f9ff);">
+    <div class="container">
+      <div class="row justify-content-center align-items-center g-4">
+        <div class="col-md-7">
+          <h2 class="display-5 fw-bold mb-3">Начните обучаться уже сегодня</h2>
+          <p class="lead mb-4 text-muted">
+            Ваше будущее начинается с одного клика. Создавайте темы, фиксируйте мысли, отслеживайте успехи.
+          </p>
+          <div class="d-flex flex-column flex-md-row gap-3 justify-content-center mt-4">
+            <a href="{% url 'learning_logs:new_topic' %}" class="btn btn-primary btn-lg rounded-pill px-4 shadow-sm">
+              Новая тема
+            </a>
+            <a href="#features" class="btn btn-outline-primary btn-lg rounded-pill px-4">
+              Как это работает?
+            </a>
+          </div>
+        </div>
+        </section>
+
+    <section id="features" class="container py-5">
+    <div class="row text-center">
+      <div class="col-md-4 mb-4">
+        <div class="p-3">
+          <i class="bi bi-journal-text display-5 text-primary mb-2"></i>
+          <h5>Организуйте обучение</h5>
+          <p class="text-muted">Создавайте темы, делайте заметки и не теряйте мысли.</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="p-3">
+          <i class="bi bi-graph-up-arrow display-5 text-success mb-2"></i>
+          <h5>Развивайтесь</h5>
+          <p class="text-muted">Отслеживайте свой прогресс по каждой теме.</p>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="p-3">
+          <i class="bi bi-shield-check display-5 text-info mb-2"></i>
+          <h5>Персонально для вас</h5>
+          <p class="text-muted">Никто кроме вас не увидит ваши заметки.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <section class="bg-light py-5">
+    <div class="container">
+      <h3 class="text-center fw-bold mb-4">Кому подойдёт этот журнал?</h3>
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <div class="card h-100 border-0 shadow-sm rounded-3">
+            <div class="card-body">
+              <h5 class="card-title text-primary fw-bold">Студентам</h5>
+              <p class="card-text">Ведите личный дневник обучения, чтобы ничего не забыть.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-3">
+          <div class="card h-100 border-0 shadow-sm rounded-3">
+            <div class="card-body">
+              <h5 class="card-title text-success fw-bold">Самоучкам</h5>
+              <p class="card-text">Фиксируйте каждый шаг на пути к новым навыкам.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-3">
+          <div class="card h-100 border-0 shadow-sm rounded-3">
+            <div class="card-body">
+              <h5 class="card-title text-info fw-bold">Профессионалам</h5>
+              <p class="card-text">Струтурируйте мысли для продвижения по карьерной лестнице.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Цитата или вдохновение -->
+  <section class="container py-5 text-center">
+    <blockquote class="blockquote fst-italic fs-5 mx-auto" style="max-width: 700px;">
+      <p>"Образование — это то, что остаётся после того, как всё остальное забыто."</p>
+      <footer class="blockquote-footer mt-2">Александр Эдмонтон</footer>
+    </blockquote>
+  </section>
+{% endblock %}

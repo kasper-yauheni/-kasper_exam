@@ -1,0 +1,48 @@
+{% extends "learning_logs/base.html" %}
+
+{% block title %}Темы обучения{% endblock %}
+
+{% block content %}
+  <div class="container py-5">
+    <h2 class="text-center mb-5">Список тем</h2>
+    
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 justify-content-center">
+
+      {% if topics %}
+        {% for topic in topics %}
+          <div class="col">
+            <div class="card h-100 shadow-sm border-0 rounded-3">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title text-primary fw-bold">{{ topic }}</h5>
+                <p class="card-text text-muted small">
+                  Добавлено: {{ topic.date_added|date:"d M Y" }}
+                </p>
+                <hr>
+                <p class="mt-auto mb-3">
+                  {% with entry_count=topic.entry_set.count %}
+                    Записей: <strong>{{ entry_count }}</strong>
+                  {% endwith %}
+                </p>
+                <a href="{% url 'learning_logs:topic' topic.id %}" class="btn btn-outline-primary mt-2">
+                  Открыть тему
+                </a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="col-12 text-center">
+          <div class="alert alert-info mb-0" role="alert">
+            Тем пока нет. Добавьте первую тему!
+          </div>
+        </div>
+      {% endif %}
+    </div>
+   
+        <div class="text-center mt-5">
+      <a href="{% url 'learning_logs:new_topic' %}" class="btn btn-success btn-lg">
+        <i class="bi bi-plus-circle me-2"></i>Добавить новую тему
+      </a>
+    </div>
+  </div>
+{% endblock %}

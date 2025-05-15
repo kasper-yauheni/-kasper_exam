@@ -1,0 +1,62 @@
+{% extends "learning_logs/base.html" %}
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+  <section class="d-flex align-items-center py-5">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+          <div class="card shadow-sm border-0 rounded-3 mb-4">
+            <div class="card-body p-4 p-md-5">
+              <h2 class="card-title text-center mb-4 fw-bold">Регистрация нового пользователя</h2>
+
+              <!-- Ошибки формы -->
+              {% if form.non_field_errors %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  {{ form.non_field_errors }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Закрыть"></button>
+                </div>
+              {% endif %}
+
+              <!-- Форма регистрации -->
+              <form method="post" action="{% url 'accounts:register' %}" class="needs-validation" novalidate>
+                {% csrf_token %}
+
+                {% for field in form %}
+                  <div class="mb-3">
+                    <label for="{{ field.id_for_label }}" class="form-label">
+                      {{ field.label|capfirst }}
+                    </label>
+                    {{ field }}
+                    
+                    {% if field.help_text %}
+                      <small class="form-text text-muted">{{ field.help_text }}</small>
+                    {% endif %}
+                    
+                    {% if field.errors %}
+                      <div class="invalid-feedback d-block">{{ field.errors }}</div>
+                    {% endif %}
+                  </div>
+                {% endfor %}
+
+                <!-- Кнопка регистрации -->
+                <div class="d-grid gap-2 mt-4">
+                  <button type="submit" class="btn btn-primary btn-lg">
+                    Зарегистрироваться
+                  </button>
+                </div>
+
+                <!-- Ссылка на вход -->
+                <div class="text-center mt-3">
+                  <p class="mb-0">Уже есть аккаунт? 
+                    <a href="{% url 'accounts:login' %}" class="link-primary text-decoration-none">Войдите</a>
+                  </p>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
